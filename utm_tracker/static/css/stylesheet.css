@@ -1,0 +1,212 @@
+/*
+dark-purple #3d094c
+blue: #355ae0
+deep-dark-red: #460e28
+*/
+
+/*
+yellow: #f9c70a
+dark-purple: #600761
+*/
+body {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+
+div.create_project_btn {
+      width: 200px;
+      height: 80px;
+      margin: 200px auto 0px;
+    }
+
+div.create_project_btn form button {
+      background-color: white;
+      border: 1px solid #600761;
+      border-radius: 15px;
+      color: black;
+      padding: 20px 40px;
+      text-align: center;
+      display: inline-block;
+      font-size: 12px;
+      margin: 4px 2px;
+      transition-duration: 0.2s;
+      cursor: pointer;
+    }
+
+div.create_project_btn form button:hover {
+    background-color: #600761;
+    color: white;
+    /* box-shadow: 0px 0px 50px 0px #4CAF50, 0 17px 50px 0 rgba(0,0,0,0.19); */
+    }
+
+div.user_name_post {
+    width: 200px;
+    height: 80px;
+    margin: 200px auto 0px;
+    }
+
+div.user_name_input input[type=text] {
+    width: 200px;
+    height: 30px;
+    border: none;
+    border-bottom: 1px solid #600761;
+    border-right: 1px solid #600761;
+    }
+
+div.user_name_post input[type=submit] {
+    background-color: white;
+    border: 1px solid #600761;
+    border-radius: 15px;
+    color: black;
+    padding: 10px 78px;
+    text-align: center;
+    display: inline-block;
+    font-size: 12px;
+    margin: 10px 0px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    }
+
+div.user_name_post input[type=submit]:hover {
+    background-color: #600761;
+    color: white;
+    /* box-shadow: 0px 0px 50px 0px #4CAF50, 0 17px 50px 0 rgba(0,0,0,0.19); */
+    }
+
+div.new_project_post {
+    width: 500px;
+    height: 100px;
+    margin: 250px auto 0px;
+    }
+
+div.new_project_post input[type=text] {
+    width: 200px;
+    height: 30px;
+    border: none;
+    border-bottom: 1px solid #600761;
+    border-right: 1px solid #600761;
+    margin-left: 290px;
+    }
+
+div.new_project_post input[type=submit] {
+    background-color: white;
+    border: 1px solid #600761;
+    border-radius: 15px;
+    color: black;
+    padding: 10px 69px;
+    text-align: center;
+    display: inline-block;
+    font-size: 12px;
+    margin: 10px 290px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    }
+
+div.new_project_post input[type=submit]:hover {
+    background-color: #600761;
+    color: white;
+    /* box-shadow: 0px 0px 50px 0px #4CAF50, 0 17px 50px 0 rgba(0,0,0,0.19); */
+    }
+
+div.vl {
+    border-left: 1px solid #600761;
+    height: 500px;
+    position: absolute;
+    left: 50%;
+    margin-left: -3px;
+    top: 45px;
+}
+
+div.projects_table {
+    width: 500px;
+    height: 100px;
+    margin: 250px auto 0px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 10pt;
+}
+
+th, td {
+    padding: 7px;
+    text-align: left;
+    border-bottom: 1px solid #600761;
+}
+
+div.back_button form button {
+    background-color: white;
+    border: 1px solid #600761;
+    border-radius: 15px;
+    color: black;
+    padding: 6px 15px;
+    text-align: center;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 0px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+
+div.back_button form button:hover {
+    background-color: #600761;
+    color: white;
+    /* box-shadow: 0px 0px 50px 0px #4CAF50, 0 17px 50px 0 rgba(0,0,0,0.19); */
+    }
+
+div.setup_project_post {
+    position: absolute;
+    font-size: 8pt;
+    width: 260px;
+    height: 380px;
+    top: -300px;
+    left: 340px;
+    margin: 400px auto 0px;
+}
+
+div.setup_project_form input[type=text] {
+    width: 200px;
+    height: 30px;
+    border: none;
+    border-bottom: 1px solid #600761;
+    border-right: 1px solid #600761;
+    margin-left: 0px;
+    }
+
+div.setup_project_form label {
+    width: 300px;
+    height: 30px;
+    margin-left: 0px;
+    }
+
+div.setup_project_form input[type=submit] {
+    background-color: white;
+    border: 1px solid #600761;
+    border-radius: 15px;
+    color: black;
+    padding: 10px 69px;
+    text-align: center;
+    display: inline-block;
+    font-size: 12px;
+    margin: 2px 0px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    }
+
+div.setup_project_form input[type=submit]:hover {
+    background-color: #600761;
+    color: white;
+    /* box-shadow: 0px 0px 50px 0px #4CAF50, 0 17px 50px 0 rgba(0,0,0,0.19); */
+    }
+
+div.utm_table {
+    position: absolute;
+    width: 500px;
+    height: 300px;
+    top: -310px;
+    left: 650px;
+    margin: 400px auto 0px;
+}

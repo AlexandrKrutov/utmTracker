@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="back_button">
+        <form action="{{back_url}}">
+            <button type="submit">Вернуться к проектам</button>
+        </form>
+    </div>
+    <div class="setup_project_post">
+        <div class="setup_project_form">
+            <form method="POST">
+                {% csrf_token %}
+                <p>
+                    <label>Название рекламной компании*</label><br>
+                    <input type="text" name="utm_campaign" value="{{ProjectsUTM.utm_campaign}}" placeholder="utm_campaign"/>
+                </p>
+                <p>
+                    <label>Основная ссылка*</label><br>
+                    <input type="text" name="utm_source" value="{{ProjectsUTM.utm_source}}" placeholder="utm_source"/>
+                </p>
+                <p>
+                    <label>Тип трафика*</label><br>
+                    <input type="text" name="utm_medium" value="{{ProjectsUTM.utm_medium}}" placeholder="utm_medium"/>
+                </p>
+                <p>
+                    <label>Отличительная особенность метки</label><br>
+                    <input type="text" name="utm_content" value="{{ProjectsUTM.utm_content}}" placeholder="utm_content"/>
+                </p>
+                <p>
+                    <label>Ключевое слово</label><br>
+                    <input type="text" name="utm_term" value="{{ProjectsUTM.utm_term}}" placeholder="utm_term"/>
+                </p>
+                <input type="submit" value="Сохранить" >
+            </form>
+        </div>
+    </div>
+    <div class="vl"></div>
+    <div class="utm_table">
+        <table>
+            {% if not project_utms_track %}
+            <h2>У вас пока нет проектов</h2>
+            {% else %}
+            <thead><th>Название проекта</th><th>Рекламная компания</th><th>Ссылка</th><th>Ссылки</th><th>Переходы</th></thead>
+            {% for utm, track in project_utms_track.items %}
+            <tr>
+                <td>{{ utm.project_name }}</td>
+                <td>{{ utm.utm_campaign }}</td>
+                <td>{{ utm.utm_source }}</td>
+
+                <td><a href="{{ utm.utm_url }}">Ссылка</a> </td>
+                <td>{{ track }}</td>
+                <td>
+                    <a href="delete/{{ utm.utm_campaign }}">
+                        <img src="{% static 'icons/trash_icon.png' %}" width="15" height="15">
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </table>
+    </div>
+{% endblock content %}

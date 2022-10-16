@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <!-- <h3>Ваши проекты, {{user_name}}</h3> -->
+    <div class="new_project_post">
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="project_name" placeholder="Название нового проекта"/>
+            <input type="submit" value="Сохранить" >
+        </form>
+    </div>
+    <div class="vl"></div>
+    <div class="projects_table">
+        <table>
+            {% if not user_projects %}
+            <h2>У вас пока нет проектов</h2>
+            {% else %}
+            <thead><th>Проекты</th></thead>
+            {% for project in user_projects %}
+            <tr>
+                <td>{{ project.project_name }}</td>
+                <td>
+                    <a href="setup/{{project.id}}">
+                        <img src="{% static 'icons/settings_icon.png' %}" width="15" height="15"></a>
+                    <a href="delete/{{project.id}}">
+                        <img src="{% static 'icons/trash_icon.png' %}" width="15" height="15">
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </table>
+    </div>
+{% endblock content %}

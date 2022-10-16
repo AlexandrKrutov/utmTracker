@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="user_name_post">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="user_name_input">
+            <!-- <label>Введите ваше имя</label><br>
+            <h6></h6> -->
+            <input type="text" name="user_name" placeholder="Введите имя..." />
+        </div>
+        <input type="submit" value="Дальше" >
+    </form>
+    </div>
+{% endblock content %}
