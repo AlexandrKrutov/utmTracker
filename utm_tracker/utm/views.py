@@ -5,26 +5,40 @@ from django.shortcuts import render
 
 from .models import UserName, UserProjects, ProjectsUTM, UTMTracker
 
-# https://t.me/IzadgiBot
-# 127.0.0.1:8000/?utm_source=https://t.me/IzadgiBot&utm_medium=email&utm_campaign=topor18
+# https://vk.com/alalkrutov
+"""  
+
+UTM tags is a specialized tool for convenient targeting. In fact, this is a GET request.
+It looks like basic GET request: https://some_site.ru/?utm_source=url&utm_campaign=some_name&...
+
+Utm_source is the main tag. It should contain the URL where lead is going to be redirected to.
+https://some_site.ru/?utm_source=https://tg.me/SomeTgBot <-- this the the url to redirect
+
+Other tags need only for get some necessary/unnecessary statistic.
+
+"""
 def utm_check(request):
     request_get = request.GET
     utm_source = request_get.get('utm_source')
     utm_medium = request_get.get('utm_medium')
     utm_campaign = request_get.get('utm_campaign')
-    if utm_source is not None and utm_medium is not None and utm_campaign is not None:
+
+    """ check if there are utm tags """
+    if utm_source is not None and utm_medium is not None and utm_campaign is not None:  # if it`s tag
 
         tracker = UTMTracker()
         tracker.utm_campaign = ProjectsUTM.objects.get(utm_campaign=utm_campaign)
         tracker.date_time = datetime.datetime.now()
-        tracker.save()
+        tracker.save()  # save
 
-        return HttpResponseRedirect(utm_source)
-    else:
+        return HttpResponseRedirect(utm_source)  # redirect to needed url
+
+    else:  # if it`s not, so it`s a user
         request.session['main_url'] = request.build_absolute_uri()
         return render(request, 'index.html')
 
 def miniUserAuth(request):
+    """ something like auth """
     if request.method == 'POST':
         username = UserName()
         username.user_name = request.POST.get('user_name')
@@ -41,8 +55,11 @@ def miniUserAuth(request):
         return render(request, 'create_user.html', {'error_message': ''})
 
 def createProject(request):
+    """ Projects creation """
     username = request.session['user_name']
+    # table of user projects
     user_projects = UserProjects.objects.filter(user_name=UserName.objects.get(user_name=username).id)
+    # saved url of 'user/projects/' page (it needs in order to return from the page that is further away)
     request.session['back_to_projects_url'] = request.build_absolute_uri()
 
     if request.method == 'POST' and request.POST.get('project_name') != '':
@@ -56,6 +73,7 @@ def createProject(request):
     return render(request, 'user_projects.html', {'user_name': username, 'user_projects': user_projects})
 
 def deleteProject(request, id):
+    """ deleting user projects """
     try:
         project_name = UserProjects.objects.get(id=id)
         project_name.delete()
@@ -64,6 +82,7 @@ def deleteProject(request, id):
         return HttpResponseNotFound('<h2>Project not found</h2>')
 
 def setUpProject(request, id):
+    """ setting up the user project utm tags """
     if request.method == 'POST':
 
         if request.POST.get('utm_campaign') != '' and request.POST.get('utm_source') != '' and request.POST.get('utm_medium') != '':
@@ -86,19 +105,21 @@ def setUpProject(request, id):
             except:
                 pass
 
+    # getting all utm tags related to a specific project
     project_utms = ProjectsUTM.objects.filter(project_name=UserProjects.objects.get(id=id))
     project_utms_track = dict()
     for i in range(len(project_utms)):
-        try:
+        try:  # if there is at least 1 tag, get it
             utm_track = UTMTracker.objects.filter(utm_campaign=ProjectsUTM.objects.get(utm_campaign=project_utms[i].utm_campaign))
-        except:
+        except:  # if not, so just make an empty list
             utm_track = list()
-        project_utms_track[project_utms[i]] = len(utm_track)
+        project_utms_track[project_utms[i]] = len(utm_track)  # dict: {utm_tag_info : list length, ...}
 
     return render(request, 'setup_project.html',
                   {'project_utms_track': project_utms_track, 'back_url': request.session['back_to_projects_url']})
 
 def deleteUTM(request, id, utm_campaign):
+    """ deleting utm tag """
     try:
         utm = ProjectsUTM.objects.get(utm_campaign=utm_campaign)
         utm.delete()
