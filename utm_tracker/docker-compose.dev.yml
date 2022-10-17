@@ -1,0 +1,32 @@
+version: '3'
+
+
+services:
+
+    web:
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        volumes:
+            - ./:/core
+            - ./static/:/static
+            - ./media/:/media
+        ports:
+            - "8001:8001"
+        entrypoint: [ "/core/entrypoint.sh" ]
+        env_file:
+            - '.env'
+
+    nginx:
+        build:
+            context: ./docker/nginx
+            dockerfile: Dockerfile_dev
+        volumes:
+            - ./production_static/:/static
+            - ./media/:/media
+        depends_on:
+            - web
+        ports:
+            - '80:80'
+        env_file:
+            - '.env'
