@@ -1,0 +1,43 @@
+version: '3'
+
+
+services:
+
+    web:
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        volumes:
+            - ./:/core
+            - ./static/:/static
+            - ./media/:/media
+        ports:
+            - "8001:8001"
+        entrypoint: [ "/core/entrypoint.sh" ]
+        env_file:
+            - '.env'
+
+    nginx:
+        build:
+            context: ./docker/nginx
+            dockerfile: Dockerfile
+        volumes:
+            - ./static/:/static
+            - ./media/:/media
+            - ./certbot/conf:/etc/nginx/ssl
+            - ./certbot/data:/var/www/certbot
+        depends_on:
+            - web
+        ports:
+            - '80:80'
+            - '443:443'
+        env_file:
+            - '.env'
+
+    certbot:
+        image: certbot/certbot:latest
+        # command: certonly --webroot --webroot-path=/var/www/certbot --email ${EMAIL} --agree-tos --no-eff-email -d ${DOMAIN}
+        volumes:
+            - ./certbot/conf:/etc/letsencrypt
+            - ./certbot/logs:/var/log/letsencrypt
+            - ./certbot/data:/var/www/certbot
